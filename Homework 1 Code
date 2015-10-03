@@ -1,0 +1,32 @@
+using ECOS,Convex,PyPlot
+m=100;
+n=30;
+A=randn(m,n);
+b=randn(m,1);
+x=Variable(n);
+P=minimize(sum_squares(A*x-b)+15*norm(x,1));
+solve!(P,ECOSSolver());
+
+#Plot Part 1
+hold(true)
+plt[:hist](x.value)
+z=linspace(-2,2,100);
+zz=15*abs(z);
+plot(z,zz)
+
+#Part 2
+P=minimize(sum_squares(A*x-b)+2*norm(x,2));
+solve!(P,ECOSSolver());
+z=linspace(-2,2,100);
+zz=2*(z).^2;
+
+#Plot Part 2
+hold(true)
+plt[:hist](x.value)
+plot(z,zz)
+
+#Part 3
+P=minimize(sum_squares(A*x-b)+2*norm(x,2));
+solve!(P,ECOSSolver());
+z=linspace(-2,2,100);
+zz=2*(z).^2;
